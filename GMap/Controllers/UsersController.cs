@@ -51,6 +51,10 @@ namespace GMap.Controllers
         {
             if (ModelState.IsValid)
             {
+                MapManager map = new MapManager();
+                map.ParseAddress(user.Address);
+                user.Lat = map.Lat;
+                user.Lng = map.Lng;
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -83,6 +87,10 @@ namespace GMap.Controllers
         {
             if (ModelState.IsValid)
             {
+                MapManager map = new MapManager();
+                map.ParseAddress(user.Address);
+                user.Lat = map.Lat;
+                user.Lng = map.Lng;
                 db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
