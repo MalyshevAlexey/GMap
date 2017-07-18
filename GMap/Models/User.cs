@@ -10,9 +10,11 @@ namespace GMap.Models
     {
         [Key]
         public int ID { get; set; }
+        public string Nr { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Lat { get; set; }
         public string Lng { get; set; }
+        public string Photo { get; set; }
     }
 }

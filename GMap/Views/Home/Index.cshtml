@@ -1,0 +1,35 @@
+﻿@model IEnumerable<GMap.Models.User>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Users Map</h2>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDk9G6TDJ4wL_UdweOmDxOb0tDAB-4pABM"></script>
+<div id="mapCanvas" style="width: 1100px; height: 750px"></div>
+<script type="text/javascript">
+    var map;
+    function Init()
+    {
+        var center = new google.maps.LatLng(54.68, 25.27);
+        var options = { zoom: 5, center: center}
+        map = new google.maps.Map(document.getElementById("mapCanvas"), options);
+    }
+    function ShowMarker(lat, lng, title, address, photo)
+    {
+        var point = new google.maps.LatLng(lat, lng);
+        var marker = new google.maps.Marker({ position: point, map: map, title: title });
+        marker.setIcon('');
+        var info = new google.maps.InfoWindow({ content: "<div><h3>"+title+"</h3>"+address+"<br /><br /><img src='"+photo+"' alt='"+title+"' height='100' /></div>" });
+        google.maps.event.addListener(marker, "mouseover", function () { info.open(map, marker) });
+        google.maps.event.addListener(marker, "mouseout", function () { info.close() });
+    }
+
+    Init();  
+</script>
+@foreach (var x in Model)
+{
+    <script type="text/javascript">
+        ShowMarker('@x.Lat','@x.Lng','@x.Name', '@x.Address', '@x.Photo');
+    </script>
+}

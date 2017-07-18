@@ -47,7 +47,7 @@ namespace GMap.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Name,Address,Lat,Lng")] User user)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Name,Nr,Address,Lat,Lng,Photo")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +55,7 @@ namespace GMap.Controllers
                 map.ParseAddress(user.Address);
                 user.Lat = map.Lat;
                 user.Lng = map.Lng;
+                user.Photo = "https://www.videosharp.info/users/" + user.Nr + "/avatar/" + user.Nr + "_avatar_1.jpg";
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -83,7 +84,7 @@ namespace GMap.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Address,Lat,Lng")] User user)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Nr,Address,Lat,Lng,Photo")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -91,6 +92,7 @@ namespace GMap.Controllers
                 map.ParseAddress(user.Address);
                 user.Lat = map.Lat;
                 user.Lng = map.Lng;
+                user.Photo = "https://www.videosharp.info/users/" + user.Nr + "/avatar/" + user.Nr + "_avatar_1.jpg";
                 db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

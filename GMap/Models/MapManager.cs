@@ -37,7 +37,7 @@ namespace GMap.Models
             }
             catch (Exception ex)
             {
-                Lat = "0 " + ex.Message;
+                Lat = "0";
                 Lng = "0";
                 return false;
             }
